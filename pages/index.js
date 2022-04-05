@@ -19,10 +19,10 @@ export default function Home({ users }) {
   const router = useRouter();
   const { user, token, message } = useSelector((state) => state.auth);
   const { isSuccess } = useSelector((state) => state.posts);
-  // React.useEffect(() => {
-  //   if (message) toast.error(message);
-  //   if (!user) router.push("/signup");
-  // }, [token, message, router]);
+  React.useEffect(() => {
+    if (message) toast.error(message);
+    if (!user) router.push("/signup");
+  }, [token, message, router]);
   useEffect(() => {
     dispatch(getFeedPosts(token));
   }, [dispatch, token, router]);
@@ -37,7 +37,7 @@ export default function Home({ users }) {
 
       <ProfilePic />
       <main>
-        {/* <RightBar users={users} /> */}
+        <RightBar users={users} />
         <div className="hidden  lg:block">
           <TopPosts />
         </div>
@@ -53,22 +53,22 @@ export default function Home({ users }) {
     </div>
   );
 }
-// export const getServerSideProps = async (ctx) => {
-//   // const { token } = ctx.req.cookies;
-//   // // if (!token) {
-//   // //   ctx.res.writeHead(302, {
-//   // //     Location: "/signup",
-//   // //   });
-//   // // }
-//   // const res = await axios.get(`${server}/api/users/suggestedusers`, {
-//   //   headers: {
-//   //     Authorization: `Bearer ${token}`,
-//   //   },
-//   // });
-//   // return {
-//   //   props: {
-//   //     // users: res.data.users,
-//   //     users: res.data.users,
-//   //   },
-//   // };
-// };
+export const getServerSideProps = async (ctx) => {
+  const { token } = ctx.req.cookies;
+  // if (!token) {
+  //   ctx.res.writeHead(302, {
+  //     Location: "/signup",
+  //   });
+  // }
+  const res = await axios.get(`${server}/api/users/suggestedusers`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return {
+    props: {
+      // users: res.data.users,
+      users: res.data.users,
+    },
+  };
+};
