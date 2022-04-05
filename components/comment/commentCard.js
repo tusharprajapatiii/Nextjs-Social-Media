@@ -140,7 +140,7 @@ function CommentCard({ comment, replies, me }) {
         {viewReply &&
           (cmreply.length > 0 ? (
             cmreply.map((reply) => (
-              <div className="pl-8">
+              <div key={cmreply._id} className="pl-8">
                 <div className="flex items-center ">
                   <div>
                     <Image

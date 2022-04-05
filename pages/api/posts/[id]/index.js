@@ -2,7 +2,6 @@ import { verifyAuth } from "../../../../lib/auth";
 import dbconnect from "../../../../lib/mongodb";
 import Post from "/models/postsModel";
 import Comment from "/models/commentModel";
-import APIfeatures from "../../../../lib/features";
 import cloudinary from "cloudinary";
 export default async function (req, res) {
   cloudinary.config({

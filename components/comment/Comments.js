@@ -18,7 +18,12 @@ function Comments({ comment, post, me }) {
         <div>
           {comments.length > 0 ? (
             comments.map((comment) => (
-              <CommentCard me={me} comment={comment} replies={replyComments} />
+              <CommentCard
+                key={comment._id}
+                me={me}
+                comment={comment}
+                replies={replyComments}
+              />
             ))
           ) : (
             <p className="text-center text-base font-semibold">No comments</p>

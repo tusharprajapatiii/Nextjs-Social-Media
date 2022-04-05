@@ -27,7 +27,7 @@ function Profiles({ user }) {
   }, [state.token, router]);
   useEffect(() => {
     dispatch(getUserPosts({ id: user._id, token: state.token }));
-  }, [user._id]);
+  }, [user._id, dispatch, state.token]);
   return (
     <div>
       <div className="mx-auto max-w-5xl ">
