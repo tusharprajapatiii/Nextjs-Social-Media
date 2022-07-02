@@ -16,14 +16,14 @@ export default async function handler(req, res) {
           $push: { likes: req.user._id },
         },
         { new: true }
-      );
+      ).populate("comments", "content");
 
       if (!like)
         return res.status(400).json({ msg: "This post does not exist." });
 
-      res.status(200).json({ msg: "Liked Post!" });
+      res.status(200).json({ message: "Liked Post!", ...like._doc });
     } catch (err) {
-      return res.status(500).json({ msg: err.message });
+      return res.status(500).json({ message: err.message });
     }
   } else {
     res.setHeader("Allow", ["PATCH"]);

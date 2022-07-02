@@ -11,7 +11,7 @@ import {
   PencilAltIcon,
 } from "@heroicons/react/outline";
 import PostCard from "../components/Home/PostCard";
-import { getUserPosts } from "../redux/services/userSlice";
+import { getUser, getUserPosts } from "../redux/services/userSlice";
 import Followers from "../components/profile/Followers";
 import Following from "../components/profile/following";
 function Profiles({ user }) {
@@ -27,6 +27,7 @@ function Profiles({ user }) {
   }, [state.token, router]);
   useEffect(() => {
     dispatch(getUserPosts({ id: user._id, token: state.token }));
+    dispatch(getUser(user));
   }, [user._id, dispatch, state.token]);
   return (
     <div>

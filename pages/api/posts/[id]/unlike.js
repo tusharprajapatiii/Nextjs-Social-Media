@@ -12,14 +12,14 @@ export default async function handler(req, res) {
           $pull: { likes: req.user._id },
         },
         { new: true }
-      );
+      ).populate("comments", "content");
 
       if (!like)
         return res.status(400).json({ msg: "This post does not exist." });
 
-      res.json({ msg: "UnLiked Post!" });
+      res.json({ message: "UnLiked Post!", ...like._doc });
     } catch (err) {
-      return res.status(500).json({ msg: err.message });
+      return res.status(500).json({ message: err.message });
     }
   } else {
     res.setHeader("Allow", ["PATCH"]);

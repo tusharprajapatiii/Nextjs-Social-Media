@@ -16,9 +16,14 @@ export default async function (req, res) {
       const { content } = req.body;
 
       const post = await Post.findOneAndUpdate(
-        { _id: req.query.id },
+        {
+          _id: req.query.id,
+        },
         {
           content,
+        },
+        {
+          new: true,
         }
       )
         .populate("user likes", "avatar username fullname")
@@ -26,7 +31,6 @@ export default async function (req, res) {
           path: "comments",
           populate: {
             model: "User",
-
             path: "user likes",
             select: "-password",
           },
@@ -64,8 +68,28 @@ export default async function (req, res) {
     } catch (err) {
       return res.status(500).json({ message: err.message });
     }
+  } else if (req.method === "GET") {
+    try {
+      const post = await Post.findById({
+        _id: req.query.id,
+      })
+        .populate("user likes", "avatar username fullname")
+        .populate({
+          path: "comments",
+          populate: {
+            model: "User",
+            path: "user likes",
+            select: "-password",
+          },
+        });
+      res.status(200).json({
+        post,
+      });
+    } catch (err) {
+      return res.status(500).json({ message: err.message });
+    }
   } else {
-    res.setHeader("Allow", ["PATCH", "DELETE"]);
+    res.setHeader("Allow", ["PATCH", "DELETE", "GET"]);
     res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 }

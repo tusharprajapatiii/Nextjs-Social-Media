@@ -6,29 +6,22 @@ import { useRouter } from "next/router";
 function FollowBtn({ user }) {
   const [followed, setFollowed] = useState(false);
   const dispatch = useDispatch();
-  const handleFollow = async () => {
-    await dispatch(followUser(user._id));
-    setFollowed(true);
-
-    router.replace(router.asPath);
-  };
   const router = useRouter();
-
-  const state = useSelector((state) => state.auth);
+  const { users } = useSelector((state) => state.users);
+  const auth = useSelector((state) => state.auth);
   useEffect(() => {
-    if (user.followers.find((i) => i._id === state.user?._id)) {
+    if (auth.user?.following.find((item) => item._id === user._id)) {
       setFollowed(true);
     }
-    return () => {
-      setFollowed(false);
-    };
-  }, [user.followers, state.user?._id]);
-
+    return () => setFollowed(false);
+  }, [auth.user?.following, user._id]);
   const handleUnFollow = async () => {
-    await dispatch(unFollowUser(user._id));
+    await dispatch(unFollowUser({ user, users, id: user._id }));
     setFollowed(false);
-
-    router.replace(router.asPath);
+  };
+  const handleFollow = async () => {
+    await dispatch(followUser({ user, users, id: user._id }));
+    setFollowed(true);
   };
   return (
     <div>

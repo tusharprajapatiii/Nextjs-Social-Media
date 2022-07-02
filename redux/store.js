@@ -5,6 +5,8 @@ import authReducer from "./services/auth";
 import userReducer from "./services/userSlice";
 import postsReducer from "./services/postsSlice";
 import usersReducer from "./services/user";
+import messagesReducer from "./services/messagesSlice";
+import notifyReducer from "./services/notifySlice";
 import {
   FLUSH,
   REHYDRATE,
@@ -18,6 +20,8 @@ const rootReducer = combineReducers({
   users: userReducer,
   user: usersReducer,
   posts: postsReducer,
+  messages: messagesReducer,
+  notify: notifyReducer,
 });
 const persistConfig = {
   key: "root",

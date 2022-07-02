@@ -6,7 +6,7 @@ import {
   BellIcon,
   UserCircleIcon,
   ChatIcon,
-} from "@heroicons/react/solid";
+} from "@heroicons/react/outline";
 import { useDispatch, useSelector } from "react-redux";
 import Image from "next/image";
 import Tippy from "@tippyjs/react";
@@ -14,10 +14,11 @@ import "tippy.js/dist/tippy.css";
 import { motion } from "framer-motion";
 import { logout } from "../../redux/services/auth";
 import { setSearchBar } from "../../redux/services/userSlice";
-import SearchUser from "./searchUser";
+// import SearchUser from "./searchUser";
 import Link from "next/link";
 import { useRouter } from "next/router";
-
+import dynamic from "next/dynamic";
+const SearchUser = dynamic(() => import("./searchUser"), { ssr: false });
 function Navbar() {
   const router = useRouter();
   const [account, setAccount] = useState(false);
@@ -81,7 +82,7 @@ function Navbar() {
               className="relative rounded-full  md:p-1"
             >
               <span>
-                <BellIcon className="h-7 w-6 clay cursor-pointer" />
+                <BellIcon className="h-7  w-6 clay cursor-pointer" />
               </span>
               <span className="absolute text-red-600 clay rounded-full px-[6px] text-sm font-bold text-center top-[-2px] left-3">
                 2
@@ -111,15 +112,15 @@ function Navbar() {
             <UserCircleIcon className="h-7 w-6  " />
             {account && (
               <div className="absolute w-56 flex flex-col text-sm space-y-2 font-semibold items-center top-8 right-0 px-8 py-2 clay">
-                <Link href={`/${user._id}`}>
+                <Link href={`/${user?._id}`}>
                   <a>
                     <div className="flex space-y-2 px-1 justify-between">
-                      <Image
-                        src={user.avatar || "/images.png"}
+                      {/* <Image
+                        src={user.avatar  }
                         height="20px"
                         width={"22px"}
                         className="rounded-full "
-                      />
+                      /> */}
                       <h4 className="ml-4">See profile</h4>
                     </div>
                   </a>

@@ -6,7 +6,7 @@ import {
 } from "@heroicons/react/outline";
 function CreatePostInput({ setPost }) {
   return (
-    <div className="w-full  lg:sticky top-14 px-3  md:w-4/5 lg:max-w-sm md ">
+    <div className="w-full  lg:sticky top-14 px-3 md:w-4/5 lg:max-w-sm  ">
       <div
         onClick={() => setPost(true)}
         className="sm:t-10 mt-6 flex justify-between  clay items-center "

@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import FollowBtn from "./FollowBtn";
 import { giveStar } from "../../redux/services/userSlice";
 import { useRouter } from "next/router";
+import { ChatAltIcon } from "@heroicons/react/solid";
+import { addUser } from "../../redux/services/messagesSlice";
 
 function ProflileBadge({ user, setShowFollowers, setShowFollowing }) {
   const router = useRouter();
@@ -18,14 +20,18 @@ function ProflileBadge({ user, setShowFollowers, setShowFollowing }) {
     setStar(true);
   };
   useEffect(() => {
-    if (user.stars.find((item) => item === state.user._id)) {
+    if (user.stars.find((item) => item === state.user?._id)) {
       setStar(true);
     }
     return () => setStar(false);
   }, [user.stars, state.user?._id]);
+  const handleAddUser = (user) => {
+    dispatch(addUser({ ...user, text: "" }));
+    return router.push(`/messages/${user._id}`);
+  };
   return (
     <>
-      <div className="min-h-fit mt-3 pb-3 md:h-56 md:clay bg-white md:px-6 px-2 flex flex-col md:flex-row md:justify-start justify-center items-center ">
+      <div className="min-h-fit mt-3 relative pb-3 md:h-56 md:clay bg-white md:px-6 px-2 flex flex-col md:flex-row md:justify-start justify-center items-center ">
         <img
           className="rounded-full h-40 w-40 object-cover md:h-64 md:w-72 "
           src={(user.avatar && user.avatar) || "/profile2.jpg"}
@@ -73,12 +79,26 @@ function ProflileBadge({ user, setShowFollowers, setShowFollowing }) {
             </span>
           </div>
         )}
+        {state.user?._id !== user?._id && (
+          <div
+            onClick={() => handleAddUser(user)}
+            className="clay cursor-pointer hover:scale-110 p-2 absolute top-2 right-2 md:right-1/4 md:top-4 "
+          >
+            <ChatAltIcon className="h-10 w-10  " />
+          </div>
+        )}
       </div>
       <div className="mt-6 relative md:clay bg-white pl-8 py-3 space-x-4 md:space-x-8  ">
-        <span onClick={() => setShowFollowers(true)} className="cursor-pointer">
+        <span
+          onClick={() => setShowFollowers(true)}
+          className="text-sm cursor-pointer"
+        >
           {`${user.followers.length}   Followers `}{" "}
         </span>
-        <span onClick={() => setShowFollowing(true)} className="cursor-pointer">
+        <span
+          onClick={() => setShowFollowing(true)}
+          className="text-sm cursor-pointer"
+        >
           {`${user.following.length}   Following `}{" "}
         </span>
         {user._id === state.user?._id && (

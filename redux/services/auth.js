@@ -114,6 +114,20 @@ export const authSlice = createSlice({
       state.message = "";
       state.isSuccess = false;
     },
+    updateUsers: (state, action) => {
+      state.user = {
+        ...state.user,
+        following: auth.user.following.filter(
+          (item) => item._id !== action.payload._id
+        ),
+      };
+    },
+    updateFollow: (state, action) => {
+      state.user = {
+        ...state.user,
+        following: [...auth.user.following, action.payload],
+      };
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -199,5 +213,5 @@ export const authSlice = createSlice({
       });
   },
 });
-export const { reset } = authSlice.actions;
+export const { reset, updateUsers, updateFollow } = authSlice.actions;
 export default authSlice.reducer;

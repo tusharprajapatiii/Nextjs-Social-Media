@@ -4,11 +4,22 @@ import Image from "next/image";
 // import EmailSignModal from "../components/EmailSignModal";
 // import LoginModal from "../components/LoginModal";
 import { useRouter } from "next/router";
-import SignupModal from "../components/modals/signupModal";
-import LoginModal from "../components/modals/login";
-import ForgotPassword from "../components/modals/ForgotPassword";
-import ResetPassword from "../components/modals/ResetPassword";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../redux/services/auth";
+import dynamic from "next/dynamic";
+// import SignupModal from "../components/modals/signupModal";
+// import LoginModal from "../components/modals/login";
+// import ForgotPassword from "../components/modals/ForgotPassword";
+// import ResetPassword from "../components/modals/ResetPassword";
 // import { ToastContainer } from "react-toastify";
+const SignupModal = dynamic(() => import("../components/modals/signupModal"));
+const LoginModal = dynamic(() => import("../components/modals/login"));
+const ForgotPassword = dynamic(() =>
+  import("../components/modals/ForgotPassword")
+);
+const ResetPassword = dynamic(() =>
+  import("../components/modals/ResetPassword")
+);
 export default function Sigin() {
   const [showEmail, setShowEmail] = React.useState(false);
   const [showLogin, setShowLogin] = React.useState(false);
@@ -16,16 +27,23 @@ export default function Sigin() {
   const [resetPass, setResetPass] = React.useState(false);
   const router = useRouter();
   const { resetToken, id } = router.query;
+  const dispatch = useDispatch();
 
   const googleSignIn = () => {
     const provider = new GoogleAuthProvider();
     return signInWithPopup(auth, provider);
   };
+  const { user, token, message } = useSelector((state) => state.auth);
+
   useEffect(() => {
     if (resetToken && id) {
       setResetPass(true);
     }
   }, [resetToken, id, resetPass]);
+
+  // useEffect(() => {
+  //   if (token) router.push("/");
+  // }, [token]);
 
   return (
     <div className="h-screen">
@@ -130,6 +148,7 @@ export default function Sigin() {
           />
         )}
       </main>
+      <h4 onClick={() => dispatch(logout())}>Logout</h4>
     </div>
   );
 }

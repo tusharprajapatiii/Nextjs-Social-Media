@@ -14,17 +14,20 @@ import {
   likePost,
   reset,
   updatePost,
+  createComment,
   unlikePost,
 } from "../../redux/services/postsSlice";
-import { createComment } from "../../redux/services/commentsSlice";
-import Comments from "../comment/Comments";
+// import { createComment } from "../../redux/services/commentsSlice";
+// import Comments from "../comment/Comments";
 import { useRouter } from "next/router";
 import { getUserPosts } from "../../redux/services/userSlice";
 import { toast } from "react-toastify";
+import dynamic from "next/dynamic";
+const Comments = dynamic(() => import("../comment/Comments"), { ssr: false });
 function PostCard({ post, me }) {
   const [openEdit, setOpenEdit] = useState(false);
   const [writeEdit, setWriteEdit] = useState(false);
-  const [editContent, setEditContent] = useState(post.content);
+  const [editContent, setEditContent] = useState("");
   const [like, setLike] = useState(false);
   const dispatch = useDispatch();
   const [comment, showComment] = useState(false);
@@ -41,30 +44,20 @@ function PostCard({ post, me }) {
     if (like) {
       await dispatch(unlikePost(post._id));
       setLike(false);
-      if (!me) {
-        dispatch(getFeedPosts(token));
-      } else {
-        dispatch(getUserPosts({ user, token }));
-      }
+      if (me) dispatch(getUserPosts({ id: user._id, token }));
     } else {
       await dispatch(likePost(post._id));
       setLike(true);
-
-      if (!me) {
-        dispatch(getFeedPosts(token));
-      } else {
-        dispatch(getUserPosts({ user, token }));
-      }
+      if (me) dispatch(getUserPosts({ id: user._id, token }));
     }
   };
 
   useEffect(() => {
-    setEditContent(post.content);
-  }, [writeEdit]);
+    if (writeEdit) setEditContent(post.content);
+  }, [writeEdit, post.content]);
 
   useEffect(() => {
-    if (isError) toast.error(message);
-    if (post.likes.find((like) => like._id === user._id)) {
+    if (post.likes.find((like) => like._id === user?._id)) {
       setLike(true);
     }
   }, [post.likes, user?._id]);
@@ -75,11 +68,12 @@ function PostCard({ post, me }) {
       content: "",
     });
     await dispatch(createComment(commentItems));
-    if (!me) {
-      dispatch(getFeedPosts(token));
-    } else {
-      dispatch(getUserPosts({ user, token }));
-    }
+    // if (!me) {
+    //   dispatch(getFeedPosts(token));
+    // } else {
+    //   dispatch(getUserPosts({ user, token }));
+    // }
+    if (me) dispatch(getUserPosts({ user, token }));
     showComment(true);
   };
   const onCommentChange = (e) => {
@@ -98,6 +92,7 @@ function PostCard({ post, me }) {
     }
     setWriteEdit(false);
   };
+
   return (
     <>
       <div
@@ -112,7 +107,7 @@ function PostCard({ post, me }) {
             objectFit="cover"
           />
         </div>
-        <div className="rounded-lg clay relative px-3 max-w-md lg:min-w-[100%] my-2 flex flex-col md:flex-row lg:flex-col md:min-w-[600px] xl:min-w-[600px] md:max-w-sm xl:flex-row py-2">
+        <div className="rounded-lg clay relative px-3 max-w-md lg:min-w-[100%] lg:max-w-[360px] my-2 flex flex-col md:flex-row lg:flex-col md:min-w-[600px] xl:min-w-[600px] md:max-w-sm xl:flex-row py-2">
           <div>
             <div>
               <h1 className="text-sm font-extrabold">{post.user.fullname}</h1>
@@ -130,7 +125,7 @@ function PostCard({ post, me }) {
 
           <div
             className={` ${
-              post.images.length === 0 ? "mt-0  md:pl-3 " : "mt-4"
+              post.images.length === 0 ? "mt-3  md:pl-3 " : "mt-4"
             }  flex-1 overflow-y-auto relative overflow-x-hidden custom-scroll `}
           >
             <div>
@@ -244,7 +239,7 @@ function PostCard({ post, me }) {
               <h2
                 onClick={async () => {
                   await dispatch(deletePost(post._id)),
-                    await dispatch(getFeedPosts(token)),
+                    dispatch(getFeedPosts(token)),
                     setOpenEdit(false);
                   console.log(post._id);
                 }}

@@ -27,7 +27,7 @@ export default async function handler(req, res) {
       if (isUserName) {
         return res.status(400).json({ message: "Username already exists" });
       }
-      const user = new User({
+      const user = await new User({
         email,
         password,
         fullname,

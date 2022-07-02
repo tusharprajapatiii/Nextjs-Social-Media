@@ -104,7 +104,7 @@ function CommentCard({ comment, replies, me }) {
             fill={like ? "cyan" : "white"}
             className="h-3 w-3 cursor-pointer"
           />
-          <span>{comment.likes.length > 0 ? comment.likes.length : ""}</span>
+          <span>{comment.likes?.length > 0 ? comment.likes?.length : ""}</span>
         </div>
         <button
           onClick={() => setReply(!reply)}

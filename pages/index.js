@@ -11,8 +11,12 @@ import TopPosts from "../components/Home/TopPosts";
 import CreatePostInput from "../components/Home/CreatePostInput";
 import PostList from "../components/Home/PostList";
 import { getFeedPosts, reset } from "../redux/services/postsSlice";
-import PostModal from "../components/modals/PostModal";
-export default function Home({ users }) {
+import dynamic from "next/dynamic";
+// import PostModal from "../components/modals/PostModal";
+const PostModal = dynamic(() => import("../components/modals/PostModal"), {
+  ssr: false,
+});
+export default function Home({ users, discover }) {
   const dispatch = useDispatch();
   const [post, setPost] = useState(false);
 
@@ -21,7 +25,7 @@ export default function Home({ users }) {
   const { isSuccess } = useSelector((state) => state.posts);
   React.useEffect(() => {
     if (message) toast.error(message);
-    if (!user) router.push("/signup");
+    if (!user || !token) router.push("/signup");
   }, [token, message, router]);
   useEffect(() => {
     dispatch(getFeedPosts(token));
@@ -39,12 +43,12 @@ export default function Home({ users }) {
       <main>
         <RightBar users={users} />
         <div className="hidden  lg:block">
-          <TopPosts />
+          <TopPosts posts={discover} />
         </div>
         <div className="flex flex-col items-center lg:items-start lg:flex-row  ">
           <CreatePostInput setPost={setPost} />
           <div className="lg:hidden">
-            <TopPosts />
+            <TopPosts posts={discover} />
           </div>
           <PostList />
         </div>
@@ -65,10 +69,17 @@ export const getServerSideProps = async (ctx) => {
       Authorization: `Bearer ${token}`,
     },
   });
+  const discoverResponse = await axios.get(`${server}/api/posts/discover`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
   return {
     props: {
       // users: res.data.users,
       users: res.data.users,
+      discover: discoverResponse.data.posts,
     },
   };
 };

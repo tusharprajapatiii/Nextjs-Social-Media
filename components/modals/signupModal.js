@@ -49,7 +49,7 @@ function SignupModal({ setShowEmail, showEmail }) {
   const router = useRouter();
   useEffect(() => {
     if (isError) toast.error(message);
-    if (user) router.push("/");
+    if (token) router.push("/");
     dispatch(reset());
   }, [isError, message, token, dispatch, router]);
   const onSubmitHandler = (e) => {

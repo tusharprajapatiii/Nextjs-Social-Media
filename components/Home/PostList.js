@@ -1,16 +1,14 @@
 import { useSelector } from "react-redux";
 import React from "react";
 import PostCard from "./PostCard";
+import { CubeTransparentIcon } from "@heroicons/react/outline";
 function PostList() {
   const { feedPosts, isLoading } = useSelector((state) => state.posts);
 
   // if (isLoading) {
   //   return (
-  //     <div className=" w-full lg:w-[inherit] lex justify-center items-center">
-  //       <svg
-  //         class="animate-spin h-20 w-20 text-red-800 animate-spin mr-3 ..."
-  //         viewBox="0 0 24 24"
-  //       ></svg>
+  //     <div className="flex justify-center  w-full lg:w-[inherit] items-center pt-10">
+  //       <CubeTransparentIcon className="h-8 w-8 text-center mx-auto " />
   //     </div>
   //   );
   // }

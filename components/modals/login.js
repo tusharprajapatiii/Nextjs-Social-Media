@@ -32,7 +32,7 @@ function LoginModal({ setShowLogin, setForgotPass }) {
         toastId: "login",
       });
     }
-    if (user) {
+    if (token) {
       router.push("/");
     }
     dispatch(reset());

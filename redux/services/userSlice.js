@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { useSelector } from "react-redux";
 import { server } from "../../lib/utils";
 import axios from "axios";
+import { updateFollow, updateUsers } from "./auth";
 const initialState = {
   searchUsers: [],
   isLoading: false,
@@ -10,6 +10,7 @@ const initialState = {
   isSuccess: false,
   searchBar: false,
   posts: [],
+  users: [],
 };
 export const getSearchUsers = createAsyncThunk(
   "users/searchUsers",
@@ -27,18 +28,6 @@ export const getSearchUsers = createAsyncThunk(
   }
 );
 
-// export const getSingleUser = createAsyncThunk(
-//   "users/getSingleUser",
-//   async (data, thunkAPI) => {
-//     try {
-//       const res = await axios.get(`${server}/api/users/${data}`);
-//       return res.data;
-//     } catch (error) {
-//       const message = error.response.data.message;
-//       return thunkAPI.rejectWithValue(message);
-//     }
-//   }
-// );
 export const getUserPosts = createAsyncThunk(
   "users/getUser",
   async (data, thunkAPI) => {
@@ -95,11 +84,31 @@ export const updatePassword = createAsyncThunk(
 );
 export const followUser = createAsyncThunk(
   "users/followUser",
-  async (id, thunkAPI) => {
+  async ({ users, user, id }, thunkAPI) => {
     try {
-      const res = await axios.patch(`${server}/api/users/${id}/follow`);
-      const data = await res.data;
-      return data;
+      const auth = thunkAPI.getState().auth;
+      let newUser;
+
+      if (users.every((item) => item._id !== user._id)) {
+        newUser = { ...user, followers: [...user.followers, auth.user] };
+      } else {
+        users.forEach((item) => {
+          if (item._id === user._id) {
+            newUser = { ...item, followers: [...item.followers, auth.user] };
+          }
+        });
+      }
+      await axios.patch(`${server}/api/users/${id}/follow`);
+      await thunkAPI.dispatch(updateFollow(newUser));
+
+      // thunkAPI.getState().auth.user = {
+      //   ...auth.user,
+      //   following: [...auth.user.following, newUser],
+      // };
+
+      return {
+        ...newUser,
+      };
     } catch (error) {
       const message = error.response.data.message;
       return thunkAPI.rejectWithValue(message);
@@ -109,11 +118,39 @@ export const followUser = createAsyncThunk(
 
 export const unFollowUser = createAsyncThunk(
   "users/unFollowUser",
-  async (id, thunkAPI) => {
+  async ({ users, user, id }, thunkAPI) => {
     try {
-      const res = await axios.patch(`${server}/api/users/${id}/unfollow`);
-      const data = await res.data;
-      return data;
+      const auth = thunkAPI.getState().auth;
+      let newUser;
+
+      if (users.every((item) => item._id !== user._id)) {
+        newUser = {
+          ...user,
+          followers: user.followers.filter((item) => item._id !== user._id),
+        };
+      } else {
+        users.forEach((item) => {
+          if (item._id === user._id) {
+            newUser = {
+              ...item,
+              followers: item.followers.filter(
+                (item) => item._id !== auth.user._id
+              ),
+            };
+          }
+        });
+      }
+      await axios.patch(`${server}/api/users/${id}/unfollow`);
+      await thunkAPI.dispatch(updateUsers(newUser));
+      // thunkAPI.getState().auth.user = {
+      //   ...auth.user,
+      //   following: auth.user.following.filter(
+      //     (item) => item._id !== newUser._id
+      //   ),
+      // };
+      return {
+        ...newUser,
+      };
     } catch (error) {
       const message = error.response.data.message;
       return thunkAPI.rejectWithValue(message);
@@ -154,6 +191,10 @@ const userSlice = createSlice({
     },
     setSearchBar: (state, { payload }) => {
       state.searchBar = payload;
+    },
+    getUser: (state, { payload }) => {
+      const usersArray = [...state.users, payload];
+      state.users = [...new Set(usersArray)];
     },
   },
   extraReducers: (builder) => {
@@ -214,6 +255,9 @@ const userSlice = createSlice({
       .addCase(followUser.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
+        state.users = state.users.map((item) =>
+          item._id === action.payload._id ? action.payload : item
+        );
       })
       .addCase(followUser.rejected, (state, action) => {
         state.isLoading = false;
@@ -226,11 +270,13 @@ const userSlice = createSlice({
       .addCase(unFollowUser.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
+        state.users = state.users.map((item) =>
+          item._id === action.payload._id ? action.payload : item
+        );
       })
       .addCase(unFollowUser.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
-        state.message = action.payload;
       })
       .addCase(getUserPosts.pending, (state) => {
         state.isLoading = true;
@@ -257,8 +303,9 @@ const userSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
+        getStoredState;
       });
   },
 });
-export const { reset, setSearchBar } = userSlice.actions;
+export const { reset, setSearchBar, getUser } = userSlice.actions;
 export default userSlice.reducer;

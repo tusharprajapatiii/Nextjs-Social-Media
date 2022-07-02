@@ -10,6 +10,7 @@ function explore({ posts }) {
         <h1 className="text-center font-semibold my-2 text-2xl ">
           Explore Top Posts Near you{" "}
         </h1>
+
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 my-3 md:justify-start justify-center ">
           {posts?.map((post) => (
             <div

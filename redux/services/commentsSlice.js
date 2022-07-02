@@ -81,9 +81,6 @@ const commentsSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(createComment.pending, (state, action) => {
-      state.isLoading = true;
-    });
     builder.addCase(createComment.fulfilled, (state, action) => {
       state.isLoading = false;
       state.isSuccess = true;
@@ -93,9 +90,7 @@ const commentsSlice = createSlice({
       state.isError = true;
       state.message = action.payload;
     });
-    builder.addCase(updateComment.pending, (state, action) => {
-      state.isLoading = true;
-    });
+
     builder.addCase(updateComment.fulfilled, (state, action) => {
       state.isLoading = false;
       state.isSuccess = true;
@@ -105,9 +100,7 @@ const commentsSlice = createSlice({
       state.isError = true;
       state.message = action.payload;
     });
-    builder.addCase(deleteComment.pending, (state, action) => {
-      state.isLoading = true;
-    });
+
     builder.addCase(deleteComment.fulfilled, (state, action) => {
       state.isLoading = false;
       state.isSuccess = true;
@@ -117,9 +110,7 @@ const commentsSlice = createSlice({
       state.isError = true;
       state.message = action.payload;
     });
-    builder.addCase(likeComment.pending, (state, action) => {
-      state.isLoading = true;
-    });
+
     builder.addCase(likeComment.fulfilled, (state, action) => {
       state.isLoading = false;
       state.isSuccess = true;
@@ -129,9 +120,7 @@ const commentsSlice = createSlice({
       state.isError = true;
       state.message = action.payload;
     });
-    builder.addCase(unlikeComment.pending, (state, action) => {
-      state.isLoading = true;
-    });
+
     builder.addCase(unlikeComment.fulfilled, (state, action) => {
       state.isLoading = false;
       state.isSuccess = true;

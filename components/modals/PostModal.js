@@ -26,9 +26,10 @@ function PostModal({ setPost }) {
   const { user, token } = useSelector((state) => state.auth);
   const [previewImage, setPreviewImage] = useState([]);
   const onChangeHandler = (e) => {
-    const files = Array.from(e.target.files);
     setPostItems({ ...postItems, images: [] });
     setPreviewImage([]);
+    const files = Array.from(e.target.files);
+
     if (files.length > 4) {
       toast.error("You can only upload 4 images");
       return;
@@ -51,13 +52,13 @@ function PostModal({ setPost }) {
   };
   useEffect(() => {
     if (isError) toast.error(message);
-    if (isSuccess) setPost(false);
+    if (message) setPost(false);
     dispatch(reset());
   }, [isError, isSuccess, message]);
-  const onSubmitHandler = async (e) => {
+  const onSubmitHandler = (e) => {
     e.preventDefault();
-    await dispatch(createPost(postItems));
-    dispatch(getFeedPosts(token));
+    dispatch(createPost(postItems));
+    // dispatch(getFeedPosts(token));
   };
 
   return (
