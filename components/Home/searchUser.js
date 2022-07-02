@@ -69,10 +69,9 @@ function SearchUser() {
         {searchValue.length > 0 ? (
           searchUsers?.slice(0, 8).map((user) => {
             return (
-              <Link href={`${user._id}`}>
+              <Link key={user._id} href={`${user._id}`}>
                 <div
                   onClick={() => dispatch(setSearchBar(false))}
-                  key={user._id}
                   className="p-1 flex cursor-pointer items-center"
                 >
                   <span className=" rounded-full border-2 ">
