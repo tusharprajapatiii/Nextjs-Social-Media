@@ -34,7 +34,7 @@ function ProflileBadge({ user, setShowFollowers, setShowFollowing }) {
       <div className="min-h-fit mt-3 relative pb-3 md:h-56 md:clay bg-white md:px-6 px-2 flex flex-col md:flex-row md:justify-start justify-center items-center ">
         <img
           className="rounded-full h-40 w-40 object-cover md:h-64 md:w-72 "
-          src={(user.avatar && user.avatar) || "/profile2.jpg"}
+          src={!user?.avatar && "/profile2.jpg"}
           alt="profile"
         />
         <div className="flex flex-col  w-full items-center md:items-start  md:pl-4">

@@ -1,7 +1,9 @@
 import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useSelector } from "react-redux";
 function ProfilePic() {
+  const { user } = useSelector((state) => state.auth);
   return (
     <div>
       <motion.div
