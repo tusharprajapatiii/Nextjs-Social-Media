@@ -15,7 +15,7 @@ export default async function handler(req, res) {
     }
     const random = Math.floor(Math.random() * 1000);
     const token = user._id;
-    const resetUrl = `/signup?resetToken=${token}&id=${random}`;
+    const resetUrl = `${server}/signup?resetToken=${token}&id=${random}`;
     const message = `Forgot your password? Submit a PATCH request with your new password and passwordConfirm to: ${resetUrl}.\nIf you didn't forget your password, please ignore this email!`;
     try {
       await transporter.sendMail({
