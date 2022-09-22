@@ -13,7 +13,7 @@ function TopPosts({ posts }) {
       <div className=" flex-1  py-1 items-center flex overflow-x-auto custom-scroll bg-[#fff7f7] rounded-xl ">
         {posts?.map((post, index) => (
           <img
-            className="h-24 neuphor w-24 mx flex-shrink-0 p-1 mx-2   object-cover"
+            className="h-24 border-2 shadow-xl w-24 mx flex-shrink-0 p-1 mx-2   object-cover"
             key={index}
             src={post.images[0].url}
             height={"96px"}

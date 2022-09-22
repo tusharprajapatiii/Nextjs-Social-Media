@@ -5,16 +5,16 @@ import { useSelector } from "react-redux";
 function ProfilePic() {
   const { user } = useSelector((state) => state.auth);
   return (
-    <div>
+    <div className="">
       <motion.div
         initial={{ y: "-50vh", opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 1.5, type: "spring", stiffness: 150 }}
-        className="absolute shadow-lg top-2 left-[45%] z-20 rounded-full hidden sm:inline-block bg-[#505050] "
+        className="absolute z-40 shadow-lg top-2 left-[45%]  rounded-full hidden sm:inline-block bg-[#505050] "
       >
         <Image
           className="rounded-full mx-2 cursor-pointer "
-          src={"/profile2.jpg"}
+          src={user?.avatar?.url || "/profile.jpg"}
           height={100}
           width={100}
           objectFit="cover"
@@ -28,7 +28,7 @@ function ProfilePic() {
       >
         <Image
           className="rounded-full mx-2 cursor-pointer "
-          src={"/profile2.jpg"}
+          src={user?.avatar?.url || "/profile2.jpg"}
           height={55}
           width={55}
         />

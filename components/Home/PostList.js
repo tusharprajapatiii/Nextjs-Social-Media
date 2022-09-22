@@ -13,7 +13,7 @@ function PostList() {
   //   );
   // }
   return (
-    <div className="px-1 w-full lg:w-[inherit] relative top-0  my-3">
+    <div className="px-1 w-full lg:w-[inherit] relative top-0  ">
       {feedPosts.length > 0 ? (
         feedPosts?.map((post) => <PostCard key={post._id} post={post} />)
       ) : (

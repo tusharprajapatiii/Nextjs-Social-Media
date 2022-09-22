@@ -15,7 +15,7 @@ function MsgDisplay({ user, msg, messages }) {
   };
   return (
     <>
-      <div className="clay p-3 relative my-1 group ">
+      <div className="border-2 rounded-md shadow-md p-3 relative my-1 group ">
         <div className="flex">
           <img src={user?.avatar} className="rounded-full h-7 w-7 cover mx-1" />
           <div className="flex-1">

@@ -39,13 +39,13 @@ function LeftSide() {
       <h1 className="text-center sticky top-0 bg-white py-1 font-bold text-2xl ">
         Chats
       </h1>
-      <div>
+      <div className="pr-1">
         {users?.map((user) => {
           return (
             <>
               <div
                 onClick={() => handleAddUser(user)}
-                className={`flex py-2 clay min-h-[80px] my-1 cursor-pointer md:py-3 lg:py-1 w-full `}
+                className={`flex py-2 border-2 rounded-md shadow-md  min-h-[80px] my-1 cursor-pointer md:py-3 lg:py-1 w-full `}
                 key={user._id}
               >
                 <div className="w-1/5  flex justify-center items-center">

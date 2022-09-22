@@ -31,10 +31,10 @@ function ProflileBadge({ user, setShowFollowers, setShowFollowing }) {
   };
   return (
     <>
-      <div className="min-h-fit mt-3 relative pb-3 md:h-56 md:clay bg-white md:px-6 px-2 flex flex-col md:flex-row md:justify-start justify-center items-center ">
+      <div className="min-h-fit mt-3 relative pb-3 border-2 shadow-md md:h-56 md: bg-white md:px-6 px-2 flex flex-col md:flex-row md:justify-start justify-center items-center ">
         <img
-          className="rounded-full h-40 w-40 object-cover md:h-64 md:w-72 "
-          src={!user?.avatar && "/profile2.jpg"}
+          className="rounded-full h-40 w-40 object-cover md:h-56 md:w-64 "
+          src={user?.avatar?.url || "/profile.jpg"}
           alt="profile"
         />
         <div className="flex flex-col  w-full items-center md:items-start  md:pl-4">
@@ -53,7 +53,7 @@ function ProflileBadge({ user, setShowFollowers, setShowFollowing }) {
             >
               <StarIcon
                 fill={`${star ? "red" : "white"}`}
-                className="h-40 cursor-pointer rounded-full clay  ml-1 w-40"
+                className="h-40 cursor-pointer rounded-full   ml-1 w-40"
               />
               <h4>Give Star!</h4>
             </span>
@@ -82,13 +82,13 @@ function ProflileBadge({ user, setShowFollowers, setShowFollowing }) {
         {state.user?._id !== user?._id && (
           <div
             onClick={() => handleAddUser(user)}
-            className="clay cursor-pointer hover:scale-110 p-2 absolute top-2 right-2 md:right-1/4 md:top-4 "
+            className=" cursor-pointer hover:scale-110 p-2 absolute top-2 right-2 md:right-1/4 md:top-4 "
           >
             <ChatAltIcon className="h-10 w-10  " />
           </div>
         )}
       </div>
-      <div className="mt-6 relative md:clay bg-white pl-8 py-3 space-x-4 md:space-x-8  ">
+      <div className="mt-6 relative md: bg-white border-2 shadow-md pl-8 py-3 space-x-4 md:space-x-8  ">
         <span
           onClick={() => setShowFollowers(true)}
           className="text-sm cursor-pointer"

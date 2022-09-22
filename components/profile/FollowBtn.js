@@ -31,9 +31,9 @@ function FollowBtn({ user }) {
           whileTap={{
             scale: 0.8,
           }}
-          className={`rounded-lg  hover:block text-xs  ${
+          className={`rounded-lg  hover:block text-xs text-cyan-600  ${
             router.query.id && "text-lg md:px-2"
-          } p-1 border-[1px] clay border-slate-500 bg-cyan-300`}
+          } p-1 border-[1px]  border-cyan-600 bg-white`}
         >
           Follow
         </motion.button>
@@ -45,7 +45,7 @@ function FollowBtn({ user }) {
           }}
           className={`rounded-lg text-red-500 hover:block ${
             router.query.id && "text-lg md:px-2"
-          } text-[10px] p-1 border-[1px] clay border-slate-500 bg-cyan-300`}
+          } text-[10px] p-1 border-[1px]  border-cyan-600 bg-white`}
         >
           unFollow
         </motion.button>

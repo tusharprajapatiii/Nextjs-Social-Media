@@ -37,8 +37,8 @@ function RightBar({ users }) {
   // };
 
   return (
-    <div className="hidden min-w-[236px] max-w-[236px] lg:block fixed right-0 h-full">
-      <div className="  border-2 clay rounded-lg overflow-y-auto  mx-2 p-3 max-h-max ">
+    <div className="hidden min-w-[226px]  shadow-md mt-2 bg-white rounded-md  max-w-[236px] lg:block fixed right-0 h-full">
+      <div className="     overflow-y-auto   p-3 max-h-max ">
         <div className="flex justify-between">
           <h1 className="text-base ml-1 mb-1 font-bold">Suggested peoples</h1>
           <span onClick={() => refresh()} className="cursor-pointer">

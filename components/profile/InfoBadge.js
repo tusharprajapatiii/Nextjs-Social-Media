@@ -10,7 +10,7 @@ import Link from "next/link";
 
 function InfoBadge({ user }) {
   return (
-    <div className="p-3 xl:sticky xl:top-16 relative bg-white max-h-[400px] md:clay max-w-lg xl:mx-2 xl:min-w-[400px] mx-auto mt-4">
+    <div className="p-3 xl:sticky xl:top-16 relative border-2 shadow-md bg-white max-h-[400px] md:border-2 shadow-md rounded-lg max-w-lg xl:mx-2 xl:min-w-[400px] mx-auto mt-4">
       <h1 className="text-xl text-center font-bold "> Info</h1>
       <div>
         <div className="flex py-1 pl-4 ">

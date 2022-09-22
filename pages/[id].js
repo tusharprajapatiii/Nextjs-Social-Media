@@ -43,14 +43,14 @@ function Profiles({ user }) {
         </h1>
         <div className="xl:flex">
           <InfoBadge user={user} />
-          <div className="flex-1  flex-col items-center justify-center ">
-            <div className="w-full mx-auto max-w-lg   px-3  ">
+          <div className="flex-1   flex-col items-center justify-center ">
+            <div className="w-full border-2 bg-white shadow-md rounded-md mx-auto max-w-lg   px-3  ">
               <div
                 onClick={() => setPost(true)}
                 className="sm:t-10 mt-6 flex justify-between  clay items-center "
               >
                 <input
-                  className="rounded-xl cursor-pointer  px-3 outline-none  h-14 w-full"
+                  className="rounded-xl cursor-pointer border-2 shadow-md px-3 outline-none  h-14 w-full"
                   type="text"
                   placeholder="Show something about today"
                   disabled
@@ -58,9 +58,9 @@ function Profiles({ user }) {
                 {/* Show something about today */}
               </div>
               <div className="py-2 px-6 lg:mt-2 flex justify-evenly clay">
-                <PhotographIcon className="h-6 w-6 cursor-pointer" />
-                <EmojiHappyIcon className="h-6 w-6 cursor-pointer" />
-                <PencilAltIcon className="h-6 w-6 cursor-pointer" />
+                <PhotographIcon className="h-6 w-6 stroke-red-700 cursor-pointer" />
+                <EmojiHappyIcon className="h-6 w-6 stroke-yellow-500 cursor-pointer" />
+                <PencilAltIcon className="h-6 w-6 stroke-blue-600 cursor-pointer" />
               </div>
             </div>
             <div>

@@ -68,7 +68,7 @@ export default function Sigin() {
           <Image src="/images.png" height={40} width={45} />
           <h2 className="py-6 text-[2.5rem] font-bold">Trending Now</h2>
           <h3 className="text-xl my-2 font-bold">Join Reach.</h3>
-          <button
+          {/* <button
             // onClick={() => {
             //   googleSignIn()
             //     .then((user) => {
@@ -81,14 +81,14 @@ export default function Sigin() {
             //     })
             //     .catch((err) => console.log(err));
             // }}
-            className="my-4 flex clay md:w-[40%] w-full border-2 rounded-3xl py-2 justify-center"
+            className="my-4 flex  md:w-[40%] w-full border-2 rounded-3xl py-2 justify-center"
           >
             <Image src="/google.jpg" height={22} width={22} />
             <span className="ml-6 font-semibold">Sign up with Google</span>
-          </button>
+          </button> */}
           <button
             onClick={() => setShowEmail(true)}
-            className="my-4 flex clay md:w-[40%] w-full border-2 rounded-3xl py-2 justify-center bg-red-600"
+            className="my-4 flex  md:w-[40%] w-full border-2 rounded-3xl py-2 justify-center bg-cyan-500"
           >
             <span className="ml-6 font-semibold ">Sign up with email</span>
           </button>
@@ -102,7 +102,7 @@ export default function Sigin() {
             <span>
               <button
                 onClick={() => setShowLogin(true)}
-                className="my-4 clay font-semibold flex md:w-[40%] w-full border-2 rounded-3xl py-2 justify-center bg-red-600"
+                className="my-4  font-semibold flex md:w-[40%] w-full border-2 rounded-3xl py-2 justify-center bg-cyan-500"
               >
                 Sign in
               </button>

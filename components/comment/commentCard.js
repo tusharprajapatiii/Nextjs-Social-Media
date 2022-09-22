@@ -81,7 +81,7 @@ function CommentCard({ comment, replies, me }) {
             alt="avatar"
           />
         </div>
-        <div className="  border-2 p-[6px] w-[100%]  mx-1 my-[2px] max-w-[85%] clay  rounded-xl text-xs">
+        <div className="  border-b-2 p-[6px] w-[100%]  mx-1 my-[2px] max-w-[85%] clay  rounded-xl text-xs">
           {comment.content.length > 80
             ? `${comment.content.substring(0, 80)}...`
             : comment.content}
@@ -131,7 +131,7 @@ function CommentCard({ comment, replies, me }) {
               className=" text-xs overflow-hidden  h-8 clay p-1 max-h-8  outline-none  border-b-2"
             ></textarea>
             <button onClick={onReplyHandler} type="submit">
-              <ArrowCircleRightIcon className="h-5 w-5  mx-1 " />
+              <ArrowCircleRightIcon className="h-5 w-5 stroke-cyan-400 mx-1 " />
             </button>
           </form>
         )}
@@ -186,13 +186,13 @@ function CommentCard({ comment, replies, me }) {
           ))}
       </div>
 
-      <div className="absolute bottom-5 right-5 ">
+      <div className="absolute bottom-0 right-5 ">
         <TrashIcon
           onClick={async () => {
             await dispatch(deleteComment(comment._id)),
               dispatch(getFeedPosts(token));
           }}
-          className="h-4 w-4  lg:h-3 lg:w-3 cursor-pointer"
+          className="h-3 w-3  lg:h-3 lg:w-3 cursor-pointer"
         />
       </div>
     </div>

@@ -36,9 +36,9 @@ function SearchUser() {
   };
 
   return (
-    <div className="fixed top-0 left-0 h sm:max-w-xs  sm:max-h-[80vh] sm:min-h-fit  w-full z-50 clay p-3 bg-white ">
-      <div className="flex neuphor md:px-2 items-center ">
-        <div>
+    <div className="fixed border-2 top-0 left-0 h sm:max-w-xs  sm:max-h-[80vh] sm:min-h-fit  w-full z-50  p-3 bg-white ">
+      <div className="flex  md:px-2 bg-white items-center ">
+        <div className="bg-white">
           <XIcon
             onClick={() => {
               dispatch(setSearchBar(false)), dispatch(setUsersEmpty());
@@ -48,7 +48,7 @@ function SearchUser() {
         </div>
         <form
           onSubmit={(e) => onsubmitHandler(e)}
-          className="w-full  flex items-center rounded-3xl border-2 px-2 "
+          className="w-full bg-white  flex items-center rounded-3xl border-2 px-2 "
         >
           <DebounceInput
             debounceTimeout={700}

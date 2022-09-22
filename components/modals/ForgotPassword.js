@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { forgotPassword, reset } from "../../redux/services/auth";
 import { XIcon } from "@heroicons/react/outline";
 import { toast } from "react-toastify";
+import useOutsideAlerter from "../componentVisible";
+import { useRef } from "react";
 function ForgotPassword({ setForgotPass }) {
   const [email, setEmail] = React.useState("");
   const dispatch = useDispatch();
@@ -18,9 +20,15 @@ function ForgotPassword({ setForgotPass }) {
     e.preventDefault();
     dispatch(forgotPassword({ email }));
   };
+  const wrapperRef = useRef(null);
+  useOutsideAlerter(wrapperRef, setForgotPass);
+
   return (
     <div className="h-screen absolute top-0 w-screen flex items-center justify-center it z-50  ">
-      <div className="relative w-full  bg-white clay py-4  px-2 max-w-xl ">
+      <div
+        ref={wrapperRef}
+        className="relative w-full  bg-white border-2 shadow-sm rounded-md py-4  px-2 max-w-xl "
+      >
         <h1 className="text-2xl font-bold text-center">Forgot Password</h1>
         <form
           className="my-8 flex flex-col justify-between "
@@ -28,7 +36,7 @@ function ForgotPassword({ setForgotPass }) {
         >
           <input
             placeholder="email"
-            className="h-12 clay px-4 outline-none w-full"
+            className="h-12 border-2 shadow-md rounded-lg px-4 outline-none w-full"
             type="email"
             value={email}
             name="email"

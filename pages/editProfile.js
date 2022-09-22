@@ -56,80 +56,80 @@ function EditProfile() {
         <div className="my-6 px-3">
           <form
             onSubmit={onSubmitHandler}
-            className="max-w-fit font-semibold space-y-8 xl:space-y-4 mx-auto"
+            className="max-w-fit lg:w-[50%] font-semibold space-y-8 xl:space-y-4 mx-auto"
           >
-            <div>
+            <div className=" grid grid-cols-2 ">
               <label htmlFor="fullname">fullname</label>
 
               <input
                 value={editData.fullname}
                 onChange={onChangeHandler}
                 type="text"
-                className="outline-none mx-2 clay px-2 border-2"
+                className="outline-none mx-2 border-2 shadow-md rounded-lg px-2 border-2"
                 name="fullname"
                 id="fullname"
               />
             </div>
-            <div>
+            <div className=" grid grid-cols-2 ">
               <label htmlFor="username">username</label>
               <input
                 value={editData.username}
                 onChange={onChangeHandler}
                 // placeholder={user?.username}
                 type="text"
-                className="outline-none mx-2 clay px-2 border-2"
+                className="outline-none mx-2 border-2 shadow-md rounded-lg px-2 border-2"
                 name="username"
                 id="username"
               />
             </div>
-            <div>
+            <div className=" grid grid-cols-2 ">
               <label htmlFor="email">email</label>
               <input
                 value={editData.email}
                 onChange={onChangeHandler}
                 // placeholder={user?.email}
                 type="email"
-                className="outline-none mx-2 min-w-[260px] clay px-2 border-2"
+                className="outline-none mx-2 min-w-[260px] border-2 shadow-md rounded-lg px-2 border-2"
                 name="email"
                 id="email"
               />
             </div>
-            <div>
+            <div className=" grid grid-cols-2 ">
               <label htmlFor="mobile">mobile</label>
               <input
                 value={editData.mobile}
                 onChange={onChangeHandler}
                 // placeholder={user?.mobile}
                 type="text"
-                className="outline-none mx-2 clay px-2 border-2"
+                className="outline-none mx-2 border-2 shadow-md rounded-lg px-2 border-2"
                 name="mobile"
                 id="mobile"
               />
             </div>
-            <div>
+            <div className=" grid grid-cols-2 ">
               <label htmlFor="address">address</label>
               <textarea
                 value={editData.address}
                 onChange={onChangeHandler}
                 // placeholder={user?.address ? user.address : "...."}
                 type="text"
-                className="outline-none min-w-[280px] mx-2 clay px-2 border-2"
+                className="outline-none min-w-[280px] mx-2 border-2 shadow-md rounded-lg px-2 border-2"
                 name="address"
                 id="address"
               />
             </div>
-            <div>
+            <div className=" grid grid-cols-2 ">
               <label htmlFor="goal">goal</label>
               <textarea
                 value={editData.goal}
                 onChange={onChangeHandler}
                 // placeholder={user?.goal ? user.goal : "...."}
-                className="outline-none min-w-[300px] max-h-20 mx-2 clay px-2 border-2"
+                className="outline-none min-w-[300px] max-h-20 mx-2 border-2 shadow-md rounded-lg px-2 border-2"
                 name="goal"
                 id="goal"
               />
             </div>
-            <div>
+            <div className=" grid grid-cols-2 ">
               <label htmlFor="links" links>
                 links
               </label>
@@ -138,16 +138,16 @@ function EditProfile() {
                 onChange={onChangeHandler}
                 // placeholder={user?.links}
                 type="text"
-                className="outline-none overflow-hidden min-w-[300px] mx-2 max-h-20 clay px-2 border-2"
+                className="outline-none overflow-hidden min-w-[300px] mx-2 max-h-20 border-2 shadow-md rounded-lg px-2 border-2"
                 name="links"
                 id="links"
               />
             </div>
-            <div className="space-x-6">
+            <div className="space-x-6 flex justify-center items-center ">
               <label htmlFor="Male">Male</label>
               <input
                 type="radio"
-                className="clay"
+                className="border-2 shadow-md rounded-lg"
                 id="Male"
                 value="M"
                 onChange={onChangeHandler}
@@ -157,7 +157,7 @@ function EditProfile() {
               <input
                 onChange={onChangeHandler}
                 type="radio"
-                className="clay"
+                className="border-2 shadow-md rounded-lg"
                 id="Female"
                 name="gender"
                 value="F"
@@ -169,7 +169,7 @@ function EditProfile() {
             </div>
             <div className="right-16 flex justify-center md:absolute top-6">
               <button
-                className={`bg-cyan-700 ${
+                className={`bg-cyan-500 ${
                   isLoading && "opacity-25"
                 } rounded-xl px-2 py-1`}
               >

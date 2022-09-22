@@ -9,7 +9,7 @@ function Following({ user, setShowFollowing }) {
   const state = useSelector((state) => state.auth);
   return (
     <div className="min-h-screen max-h-screen w-full flex absolute top-0 left-0  ">
-      <div className=" max-w-lg min-w-full md:min-w-[540px] clay pb-4 mx-auto relative overflow-y-auto custom-scroll md:h-[450px] z-40 md:top-16">
+      <div className=" max-w-lg min-w-full md:min-w-[540px] border-2 shadow-md bg-white rounded-lg pb-4 mx-auto relative overflow-y-auto custom-scroll md:h-[450px] z-40 md:top-16">
         <div className="sticky top-0 py-2 mx-2 z-10 bg-white">
           <h1 className="text-center relative text-xl top-0 font-bold ">
             Following

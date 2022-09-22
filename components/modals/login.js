@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { toast } from "react-toastify";
 import { XIcon } from "@heroicons/react/solid";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { login, register, reset } from "../../redux/services/auth";
+import useOutsideAlerter from "../componentVisible";
 function LoginModal({ setShowLogin, setForgotPass }) {
   const [User, setUser] = useState({
     email: "",
@@ -32,7 +33,7 @@ function LoginModal({ setShowLogin, setForgotPass }) {
         toastId: "login",
       });
     }
-    if (token) {
+    if (token && user) {
       router.push("/");
     }
     dispatch(reset());
@@ -42,9 +43,12 @@ function LoginModal({ setShowLogin, setForgotPass }) {
     e.preventDefault();
     dispatch(login(User));
   };
+  const wrapperRef = useRef(null);
+  useOutsideAlerter(wrapperRef, setShowLogin);
   return (
     <div
-      className={`absolute p-3 bg-white border-2 md:clay overflow-y-auto rounded-lg w-full h-full md:w-[70%]  md:h-[65%] xl:h-[90%] md:left-[20%] md:top-8 top-0 left-0 `}
+      ref={wrapperRef}
+      className={`absolute p-3 bg-white border-2 md: overflow-y-auto shadow-lg rounded-lg w-full h-full md:w-[70%]  md:h-[65%] xl:h-[70%] md:left-[20%] md:top-14 top-0 left-0 `}
     >
       <div className="flex">
         <span
@@ -53,7 +57,7 @@ function LoginModal({ setShowLogin, setForgotPass }) {
         >
           <XIcon className="h-6 w-6" />
         </span>
-        <span className="text-3xl clay text-red-700 text-center font-extrabold">
+        <span className="text-3xl  text-red-700 text-center font-extrabold">
           <Image
             className="rounded-full"
             src="/images.png"
@@ -65,7 +69,7 @@ function LoginModal({ setShowLogin, setForgotPass }) {
       </div>
 
       <div className="mb-10 mt-20 xl:mt-6 px-4 flex flex-col justify-between ">
-        <button
+        {/* <button
           //   onClick={() => {
           //     googleLogin()
           //       .then((user) => {
@@ -78,11 +82,11 @@ function LoginModal({ setShowLogin, setForgotPass }) {
           //       })
           //       .catch((err) => console.log(err));
           //   }}
-          className="my-8 clay flex md:w-[53%] w-full border-2 rounded-3xl py-2 mx-auto  justify-center"
+          className="my-8 border-2 shadow-md rounded-lg  flex md:w-[53%] w-full py-2 mx-auto  justify-center"
         >
           <Image src="/google.jpg" height={22} width={22} />
           <span className="ml-6">Sign In with Google</span>
-        </button>
+        </button> */}
         <form
           autoComplete="off"
           autoSave="off"
@@ -90,7 +94,7 @@ function LoginModal({ setShowLogin, setForgotPass }) {
           action=""
           className="space-y-4  flex flex-col items-center "
         >
-          <div className="relative w-full md:w-[65%] rounded-lg clay px-3 border-2">
+          <div className="relative w-full md:w-[65%] rounded-lg  px-3 border-2">
             {/* <label
               className={` absolute my-1 text-xl ${user.email && "text-xs"}`}
               htmlFor="email"
@@ -98,7 +102,7 @@ function LoginModal({ setShowLogin, setForgotPass }) {
               email
             </label> */}
             <input
-              className="py-1 bg-slate-50  w-full border-none outline-none rounded-lg my-1 h-8"
+              className="py-1 border-2 shadow-md rounded-lg bg-slate-50  w-full border-none outline-none  my-1 h-8"
               placeholder="Email"
               type="email"
               name="email"
@@ -107,7 +111,7 @@ function LoginModal({ setShowLogin, setForgotPass }) {
               required
             />
           </div>
-          <div className="relative w-full md:w-[65%] rounded-lg clay px-3 border-2">
+          <div className="relative w-full md:w-[65%] rounded-lg  px-3 border-2">
             {/* <label
               className={` absolute my-1 text-xl ${user.password && "text-xs"}`}
               htmlFor="password"
@@ -115,7 +119,7 @@ function LoginModal({ setShowLogin, setForgotPass }) {
               password
             </label> */}
             <input
-              className="py-1 bg-slate-50  w-full border-none outline-none rounded-lg my-1 h-8"
+              className="py-1 bg-slate-50 border-2 shadow-md  w-full border-none outline-none rounded-lg my-1 h-8"
               type="password"
               placeholder="password"
               name="password"
@@ -139,11 +143,10 @@ function LoginModal({ setShowLogin, setForgotPass }) {
             onClick={() => {
               setForgotPass(true), setShowLogin(false);
             }}
-            className="my-2 clay rounded-lg px-8 py-2  border-2"
+            className="my-2  rounded-lg px-8 py-2  border-2"
           >
             forgot password
           </button>
-          <p className="text-left">new user? Sign up</p>
         </div>
       </div>
     </div>

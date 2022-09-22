@@ -32,8 +32,14 @@ const userSchema = new mongoose.Schema(
       maxlength: 20,
     },
     avatar: {
-      type: String,
-      default: "https://i.pravatar.cc/300",
+      public_id: {
+        type: String,
+        required: true,
+      },
+      url: {
+        type: String,
+        required: true,
+      },
     },
     role: {
       type: String,

@@ -42,12 +42,13 @@ function PostCard({ post, me }) {
   const router = useRouter();
   const handleLike = async () => {
     if (like) {
-      await dispatch(unlikePost(post._id));
       setLike(false);
+      await dispatch(unlikePost(post._id));
       if (me) dispatch(getUserPosts({ id: user._id, token }));
     } else {
-      await dispatch(likePost(post._id));
       setLike(true);
+
+      await dispatch(likePost(post._id));
       if (me) dispatch(getUserPosts({ id: user._id, token }));
     }
   };
@@ -96,7 +97,7 @@ function PostCard({ post, me }) {
   return (
     <>
       <div
-        className={`flex   justify-center md:max-h-[470px] lg:max-h-[inherit] xl:md:max-h-[470px]`}
+        className={`flex border-2 shadow-md mb-4 bg-white rounded-lg  justify-center md:max-h-[470px] lg:max-h-[inherit] xl:md:max-h-[470px]`}
       >
         <div>
           <Image
@@ -107,10 +108,15 @@ function PostCard({ post, me }) {
             objectFit="cover"
           />
         </div>
-        <div className="rounded-lg clay relative px-3 max-w-md lg:min-w-[100%] lg:max-w-[360px] my-2 flex flex-col md:flex-row lg:flex-col md:min-w-[600px] xl:min-w-[600px] md:max-w-sm xl:flex-row py-2">
+        <div className="rounded-lg  relative px-3 max-w-md lg:min-w-[100%] lg:max-w-[360px] my-2 flex flex-col md:flex-row lg:flex-col md:min-w-[600px] xl:min-w-[600px] md:max-w-sm xl:flex-row py-2">
           <div>
             <div>
-              <h1 className="text-sm font-extrabold">{post.user.fullname}</h1>
+              <h1
+                onClick={() => router.push(`/${post.user._id}`)}
+                className="text-sm hover:text-cyan-500  cursor-pointer font-[600]"
+              >
+                {post.user.fullname}
+              </h1>
             </div>
 
             {post.images[0] && (
@@ -122,7 +128,6 @@ function PostCard({ post, me }) {
               />
             )}
           </div>
-
           <div
             className={` ${
               post.images.length === 0 ? "mt-3  md:pl-3 " : "mt-4"
@@ -135,26 +140,26 @@ function PostCard({ post, me }) {
                     {post.content}
                   </p>
                 ) : (
-                  <div className="relative  ">
+                  <div className="relative top-1 ">
                     <textarea
                       ref={(ref) => {
                         if (ref) {
                           ref.focus();
                         }
                       }}
-                      className="text-xs md:text-sm p-1 w-full outline-none border-2 overflow-hidden rounded-lg font-medium"
+                      className="text-xs md:text-sm p-1  w-full outline-none border-2 overflow-hidden rounded-lg font-medium"
                       value={editContent}
                       onChange={(e) => setEditContent(e.target.value)}
                     />
                     <button
                       onClick={onEditHandler}
-                      className="absolute right-0 rounded-md clay text-sm px-1 bottom-0"
+                      className="absolute right-1 bg-white rounded-md border-2  text-sm px-1 bottom-1"
                     >
                       save
                     </button>
                     <button
                       onClick={() => setWriteEdit(false)}
-                      className="absolute top-0 text-sm rounded-lg px-1 clay right-0"
+                      className="absolute border-2 top-0 bg-white text-sm rounded-lg px-1  right-0"
                     >
                       {" "}
                       cancel{" "}
@@ -163,10 +168,10 @@ function PostCard({ post, me }) {
                 )}
                 <div className="justify-evenly px-2 flex  ">
                   <div>
-                    <button onClick={handleLike} className="clay p-1">
+                    <button onClick={handleLike} className=" p-1">
                       <ThumbUpIcon
                         fill={` ${like ? "#22d3ee" : "white"} `}
-                        className={`h-5  w-5`}
+                        className={`h-5 stroke-2 stroke-cyan-500 w-5`}
                       />
                     </button>
 
@@ -177,23 +182,25 @@ function PostCard({ post, me }) {
                   <div>
                     <button
                       onClick={() => showComment(!comment)}
-                      className="clay p-1"
+                      className=" p-1"
                     >
                       <ChatIcon
-                        className={`h-5 ${comment && "text-cyan-400"} w-5`}
+                        className={`h-5 ${
+                          comment && "fill-cyan-500"
+                        } stroke-2 stroke-cyan-600 w-5`}
                       />
                     </button>
                     <span className="text-sm font-bold">
                       {post.comments.length === 0 ? "" : post.comments.length}
                     </span>
                   </div>
-                  <button className="clay p-1">
-                    <ShareIcon className="h-5 w-5" />
+                  <button className=" p-1">
+                    <ShareIcon className="h-5 w-5 stroke-2 stroke-cyan-600" />
                   </button>
                 </div>
 
                 <div className="flex flex-col items-center">
-                  <h3 className="text-base font-semibold">Add a comment</h3>
+                  <h3 className="text-sm font-[600]">Add a comment</h3>
                   <div className="flex items-center">
                     <Image
                       className="rounded-full"
@@ -209,10 +216,10 @@ function PostCard({ post, me }) {
                       <textarea
                         value={commentItems.content}
                         onChange={onCommentChange}
-                        className="border-2 outline-none rounded-xl mx-1 text-xs max-h-28  font-medium overflow-hidden clay p-[6px] w-[100%]   "
+                        className="border-[1px] border-cyan-500  outline-none rounded-xl mx-1 text-xs max-h-28  font-medium overflow-hidden  p-[6px] w-[100%]   "
                       ></textarea>
                       <button type="submit">
-                        <ArrowCircleRightIcon className="h-6 w-6  mx-1 " />
+                        <ArrowCircleRightIcon className="h-6 w-6 stroke-2 stroke-cyan-400 mx-1 " />
                       </button>
                     </form>
                   </div>
@@ -222,12 +229,14 @@ function PostCard({ post, me }) {
             </div>
           </div>
 
-          <DotsHorizontalIcon
-            onClick={() => setOpenEdit(!openEdit)}
-            className="h-5 w-5 cursor-pointer text-cyan-600 z-50 absolute top-2  right-6"
-          />
+          {post.user._id === user._id && (
+            <DotsHorizontalIcon
+              onClick={() => setOpenEdit(!openEdit)}
+              className="h-5 w-5 cursor-pointer text-cyan-600 z-20 absolute top-2  right-6"
+            />
+          )}
           {openEdit && (
-            <div className="absolute top-4 z-40 font-semibold space-y-2 text-base  px-6 py-2 clay bg-white right-7 ">
+            <div className="absolute top-4 border-2 z-20 font-semibold space-y-2 text-sm  px-6 py-2  bg-white  right-[20%] md:right-[8%] xl:right-[8%] lg:right-[12%] ">
               <h1
                 onClick={() => {
                   setWriteEdit(true), setOpenEdit(false);

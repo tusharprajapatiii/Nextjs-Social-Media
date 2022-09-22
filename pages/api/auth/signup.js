@@ -1,24 +1,37 @@
+import cloudinary from "cloudinary";
 import dbconnect from "../../../lib/mongodb";
 import User from "../../../models/userModel";
 import jwt from "jsonwebtoken";
 import cookie from "cookie";
-
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_SECRET,
+  secure: true,
+});
 export default async function handler(req, res) {
   await dbconnect();
 
   if (req.method === "POST") {
     try {
+      const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+        folder: `profile/${req.body.username}`,
+
+        width: 150,
+        crop: "scale",
+      });
       const {
         email,
         password,
         fullname,
-        avatar,
+
         username,
         birthdate,
         goal,
         mobile,
         gender,
       } = req.body;
+
       const isEmail = await User.findOne({ email });
       if (isEmail) {
         return res.status(400).json({ message: "Email already exists" });
@@ -31,12 +44,15 @@ export default async function handler(req, res) {
         email,
         password,
         fullname,
-        avatar,
         username,
         birthdate,
         goal,
         mobile,
         gender,
+        avatar: {
+          public_id: myCloud.public_id,
+          url: myCloud.secure_url,
+        },
       }).populate(
         "followers following",
         "avatar username fullname followers following"
@@ -69,3 +85,10 @@ export default async function handler(req, res) {
     res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 }
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: "24mb", // Set desired value here
+    },
+  },
+};

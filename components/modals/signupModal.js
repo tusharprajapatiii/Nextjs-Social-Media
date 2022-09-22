@@ -7,16 +7,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { register, reset } from "../../redux/services/auth";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
+import { useRef } from "react";
+import useOutsideAlerter from "../componentVisible";
 function SignupModal({ setShowEmail, showEmail }) {
   const [step, setStep] = React.useState(0);
   const [avatarPreview, setAvatarPreview] = React.useState("/profile.jpg");
-  const [avatar, setAvatar] = React.useState("");
   const dispatch = useDispatch();
   const [User, setUser] = React.useState({
     fullname: "",
     email: "",
     password: "",
-    avatar: avatar,
+    avatar: "",
     username: "",
     gender: "",
     goal: "",
@@ -30,11 +31,11 @@ function SignupModal({ setShowEmail, showEmail }) {
       reader.onload = () => {
         if (reader.readyState === 2) {
           setAvatarPreview(reader.result);
-          setAvatar(reader.result);
+          setUser({ ...User, avatar: reader.result });
         }
       };
       {
-        e.target.files[0] && reader.readAsDataURL(e.target.files[0]);
+        reader.readAsDataURL(e.target.files[0]);
       }
     } else {
       setUser({
@@ -57,8 +58,13 @@ function SignupModal({ setShowEmail, showEmail }) {
 
     dispatch(register(User));
   };
+  const wrapperRef = useRef(null);
+  useOutsideAlerter(wrapperRef, setShowEmail);
   return (
-    <div className="absolute  overflow-y-auto p-3 clay top-0 left-0 h-screen z-10 md:w-[70%] md:left-[15%] md:h-[60%] md:top-[15%] md:p-2 xl:h-[80%] xl:top-[8%] bg-white w-full">
+    <div
+      ref={wrapperRef}
+      className="absolute border-2 shadow-md rounded-lg  overflow-y-auto p-3  top-0 left-0 h-screen z-10 md:w-[70%] md:left-[15%] md:h-[60%] md:top-[15%] md:p-2 xl:h-[80%] xl:top-[8%] bg-white w-full"
+    >
       <div className="flex">
         <span
           onClick={() => setShowEmail(false)}
@@ -68,7 +74,7 @@ function SignupModal({ setShowEmail, showEmail }) {
         </span>
         <span className="text-3xl  text-red-700 text-center font-extrabold">
           <Image
-            className="rounded-full clay"
+            className="rounded-full "
             src="/images.png"
             height={40}
             width={45}
@@ -103,7 +109,7 @@ function SignupModal({ setShowEmail, showEmail }) {
         </div>
         <div className="flex justify-center space-x-16">
           <button
-            className="clay p-4"
+            className=" p-4"
             disabled={step === 0}
             onClick={() => {
               setStep((step) => step - 1);

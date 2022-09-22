@@ -37,9 +37,14 @@ function ResetPassword({ setResetPass, resetToken, id }) {
     e.preventDefault();
     dispatch(resetPassword(resetDetails));
   };
+  const wrapperRef = useRef(null);
+  useOutsideAlerter(wrapperRef, setResetPass);
   return (
-    <div className="h-screen absolute top-0 w-screen flex items-center justify-center it z-50  ">
-      <div className="relative w-full  bg-white clay py-4  px-2 max-w-xl ">
+    <div
+      ref={wrapperRef}
+      className="h-screen absolute top-0 w-screen flex items-center justify-center it z-50  "
+    >
+      <div className="relative w-full  bg-white border-2 shadow-md rounded-lg py-4  px-2 max-w-xl ">
         <h1 className="text-2xl font-bold text-center">Forgot Password</h1>
         <form
           className="my-8 flex flex-col justify-between "
@@ -47,7 +52,7 @@ function ResetPassword({ setResetPass, resetToken, id }) {
         >
           <input
             placeholder="password"
-            className="h-12 clay px-4 outline-none w-full"
+            className="h-12 border-2 shadow-md rounded-lg px-4 outline-none w-full"
             type="password"
             value={resetDetails.password}
             name="password"
@@ -55,7 +60,7 @@ function ResetPassword({ setResetPass, resetToken, id }) {
           />
           <input
             placeholder="confirm password"
-            className="h-12 clay px-4 mt-4 outline-none w-full"
+            className="h-12 border-2 shadow-md rounded-lg px-4 mt-4 outline-none w-full"
             type="password"
             value={resetDetails.passwordConfirm}
             name="passwordConfirm"

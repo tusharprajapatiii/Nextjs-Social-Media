@@ -9,7 +9,7 @@ function Followers({ user, setShowFollowers }) {
   const state = useSelector((state) => state.auth);
   return (
     <div className="min-h-screen max-h-screen w-full flex absolute top-0 left-0  ">
-      <div className="inset-x-0 max-w-lg min-w-full md:min-w-[540px] clay pb-4 mx-auto relative overflow-y-auto md:h-[450px]  custom-scroll z-40 md:top-16">
+      <div className="inset-x-0 max-w-lg min-w-full md:min-w-[540px] bg-white border-2 shadow-md pb-4 mx-auto relative overflow-y-auto md:h-[450px]  custom-scroll z-40 md:top-16">
         <div className="sticky top-0 py-2 z-10 bg-white mx-2 ">
           <h1 className="text-center text-xl font-bold ">Followers</h1>
 

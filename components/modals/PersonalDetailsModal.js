@@ -15,12 +15,12 @@ function PersonalDetailsModal({
   return (
     <div className="w-full px-8 xl:w-[50%] ">
       <h1 className="text-center text-3xl my-4 font-bold">{title}</h1>
-      <div className="w-full my-12 md:my-2">
+      <div className="w-full border-2 shadow-md rounded-lg p-2 my-12 md:my-2">
         <div
           encType="multipart/form-data"
           className="space-y-6 flex flex-col items-center"
         >
-          <div className="flex clay justify-center border-2 relative rounded-full ">
+          <div className="flex border-2 shadow-sm rounded-md justify-center relative  ">
             <Image
               className="rounded-full "
               height={100}
@@ -38,7 +38,7 @@ function PersonalDetailsModal({
               onChange={onChangeHandler}
             />
             <label
-              className="absolute bottom-0 md:-bottom-[10px] clay rounded-full bg-white cursor-pointer"
+              className="absolute bottom-0 md:-bottom-[10px] border-2 shadow-sm rounded-md rounded-full bg-white cursor-pointer"
               htmlFor="avatar"
             >
               <UserIcon height={30} width={30} />
@@ -46,7 +46,7 @@ function PersonalDetailsModal({
           </div>
           <div>
             <input
-              className="h-12 clay px-2 w-full border-2 outline-none rounded-lg"
+              className="h-12 border-2 shadow-md rounded-lg  px-2 w-full  outline-none rounded-lg"
               required
               placeholder="username"
               type="text"
@@ -55,9 +55,9 @@ function PersonalDetailsModal({
               onChange={onChangeHandler}
             />
           </div>
-          <div className="flex">
+          <div className="flex ">
             <input
-              className="h-12 clay px-2 w-[45%] border-2 outline-none rounded-lg"
+              className="h-12 border-2 shadow-md rounded-lg px-2 w-[45%] border-2 outline-none rounded-lg"
               required
               type="text"
               name="gender"
@@ -66,7 +66,7 @@ function PersonalDetailsModal({
               onChange={onChangeHandler}
             />
             <input
-              className="h-12 outline-none px-2 clay"
+              className="h-12 outline-none px-2 border-2 shadow-md rounded-lg"
               placeholder="Birthdate"
               type="date"
               required
@@ -77,7 +77,7 @@ function PersonalDetailsModal({
           </div>
           <div className="w-full">
             <input
-              className="h-12 clay px-2 w-full border-2 outline-none rounded-lg"
+              className="h-12 border-2 shadow-md rounded-lg px-2 w-full border-2 outline-none "
               placeholder="Goal"
               type="text"
               required
@@ -90,7 +90,7 @@ function PersonalDetailsModal({
         {/* <form className="space-y-6">
           <div>
             <input
-              className="h-12  clay px-2 w-full  border-2 outline-none rounded-lg my-1"
+              className="h-12  border-2 shadow-sm rounded-md px-2 w-full  border-2 outline-none rounded-lg my-1"
               required
               placeholder="Fullname"
               type="text"
@@ -101,7 +101,7 @@ function PersonalDetailsModal({
           </div>
           <div>
             <input
-              className="h-12 clay px-2 w-full border-2 outline-none rounded-lg my-1"
+              className="h-12 border-2 shadow-sm rounded-md px-2 w-full border-2 outline-none rounded-lg my-1"
               required
               placeholder="Email"
               type="email"
@@ -112,7 +112,7 @@ function PersonalDetailsModal({
           </div>
           <div>
             <input
-              className="h-12  clay px-2 w-full border-2 outline-none rounded-lg my-1"
+              className="h-12  border-2 shadow-sm rounded-md px-2 w-full border-2 outline-none rounded-lg my-1"
               required
               placeholder="Password"
               type="password"

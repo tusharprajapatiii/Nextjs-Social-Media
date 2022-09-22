@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { server } from "../lib/utils";
 import { ThumbUpIcon, ChatAlt2Icon } from "@heroicons/react/outline";
 
-function explore({ posts }) {
+function Explore({ posts }) {
   return (
     <div>
       <div className="w-full md:p-3 md:max-w-5xl  bg-white mx-auto  ">
@@ -11,11 +11,11 @@ function explore({ posts }) {
           Explore Top Posts Near you{" "}
         </h1>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 my-3 md:justify-start justify-center ">
+        <div className="grid grid-cols-2 lg:grid-cols-3 sm:grid-cols-3 gap-2 my-3 md:justify-start justify-center ">
           {posts?.map((post) => (
             <div
               key={post.id}
-              className={`mx-1 relative xl:max-h-80 md:mx-2 group hover:opacity-60 cursor-pointer clay p-2 my-2 md:p-4 `}
+              className={`mx-1 relative xl:max-h-80 border-2 shadow-md rounded-lg  md:mx-2 group hover:opacity-60 cursor-pointer  p-2 my-2 md:p-4 `}
             >
               <img
                 src={post.images[0].url}
@@ -58,4 +58,4 @@ export const getServerSideProps = async (ctx) => {
   };
 };
 
-export default explore;
+export default Explore;

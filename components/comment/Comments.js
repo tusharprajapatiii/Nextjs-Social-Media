@@ -26,7 +26,7 @@ function Comments({ comment, post, me }) {
               />
             ))
           ) : (
-            <p className="text-center text-base font-semibold">No comments</p>
+            <p className="text-center text-sm font-medium">No comments</p>
           )}
         </div>
       )}
