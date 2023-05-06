@@ -11,7 +11,7 @@ const initialState = {
 };
 export const login = createAsyncThunk("auth/login", async (data, thunkAPI) => {
   try {
-    const res = await axios.post(`${server}/api/auth/login`, data, {
+    const res = await axios.post(`/api/auth/login`, data, {
       headers: {
         "Content-Type": "application/json",
       },
@@ -29,7 +29,7 @@ export const register = createAsyncThunk(
   "auth/signUp",
   async (data, thunkAPI) => {
     try {
-      const res = await axios.post(`${server}/api/auth/signup`, data, {
+      const res = await axios.post(`/api/auth/signup`, data, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -46,7 +46,7 @@ export const logout = createAsyncThunk(
   "auth/logout",
   async (data, thunkAPI) => {
     try {
-      await axios.get(`${server}/api/auth/logout`, data);
+      await axios.get(`/api/auth/logout`, data);
     } catch (error) {
       const message = error.response.data.message;
 
@@ -58,7 +58,7 @@ export const forgotPassword = createAsyncThunk(
   "auth/forgotPassword",
   async (email, thunkAPI) => {
     try {
-      const res = await axios.post(`${server}/api/auth/forgotpassword`, email, {
+      const res = await axios.post(`/api/auth/forgotpassword`, email, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -76,7 +76,7 @@ export const resetPassword = createAsyncThunk(
     const { resetToken, id, password, passwordConfirm } = data;
     try {
       const res = await axios.post(
-        `${server}/api/auth/resetpassword?resetToken=${resetToken}&id=${id}`,
+        `/api/auth/resetpassword?resetToken=${resetToken}&id=${id}`,
         { password, passwordConfirm },
         {
           headers: {
@@ -95,7 +95,7 @@ export const updateUser = createAsyncThunk(
   "auth/updateUser",
   async (data, thunkAPI) => {
     try {
-      const res = await axios.patch(`${server}/api/users`, data);
+      const res = await axios.patch(`/api/users`, data);
       return res.data;
     } catch (error) {
       const message = error.response.data.message;

@@ -16,9 +16,7 @@ export const getSearchUsers = createAsyncThunk(
   "users/searchUsers",
   async (searchValue, thunkAPI) => {
     try {
-      const res = await axios.get(
-        `${server}/api/users/search?username=${searchValue}`
-      );
+      const res = await axios.get(`/api/users/search?username=${searchValue}`);
       console.log(searchValue, res);
       return res.data;
     } catch (error) {
@@ -32,7 +30,7 @@ export const getUserPosts = createAsyncThunk(
   "users/getUser",
   async (data, thunkAPI) => {
     try {
-      const res = await axios.get(`${server}/api/posts/userpost/${data.id}`, {
+      const res = await axios.get(`/api/posts/userpost/${data.id}`, {
         headers: {
           Authorization: `Bearer ${data.token}`,
         },
@@ -49,7 +47,7 @@ export const updateUser = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       const res = await axios.patch(
-        `${server}/api/users`,
+        `/api/users`,
         data
         // {
         //   headers: {
@@ -70,7 +68,7 @@ export const updatePassword = createAsyncThunk(
   "auth/updatePassword",
   async (data, thunkAPI) => {
     try {
-      const res = await axios.patch(`${server}/api/auth/changepassword`, data, {
+      const res = await axios.patch(`/api/auth/changepassword`, data, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -98,7 +96,7 @@ export const followUser = createAsyncThunk(
           }
         });
       }
-      await axios.patch(`${server}/api/users/${id}/follow`);
+      await axios.patch(`/api/users/${id}/follow`);
       await thunkAPI.dispatch(updateFollow(newUser));
 
       // thunkAPI.getState().auth.user = {
@@ -140,7 +138,7 @@ export const unFollowUser = createAsyncThunk(
           }
         });
       }
-      await axios.patch(`${server}/api/users/${id}/unfollow`);
+      await axios.patch(`/api/users/${id}/unfollow`);
       await thunkAPI.dispatch(updateUsers(newUser));
       // thunkAPI.getState().auth.user = {
       //   ...auth.user,
@@ -159,7 +157,7 @@ export const unFollowUser = createAsyncThunk(
 );
 export const deleteMe = createAsyncThunk("users/deleteMe", async (thunkAPI) => {
   try {
-    const res = await axios.delete(`${server}/api/users/deleteme`);
+    const res = await axios.delete(`/api/users/deleteme`);
     return res.data;
   } catch (error) {
     const message = error.response.data.message;
@@ -170,7 +168,7 @@ export const giveStar = createAsyncThunk(
   "users/giveStar",
   async (id, thunkAPI) => {
     try {
-      const res = await axios.patch(`${server}/api/users/${id}/givestar`);
+      const res = await axios.patch(`/api/users/${id}/givestar`);
       return res.data;
     } catch (error) {
       const message = error.response.data.msg;

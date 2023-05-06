@@ -11,7 +11,7 @@ export const createComment = createAsyncThunk(
   "comments/createComment",
   async (data, thunkAPI) => {
     try {
-      const res = await axios.post(`${server}/api/comment`, data);
+      const res = await axios.post(`/api/comment`, data);
       return res.data;
     } catch (error) {
       const message = error.response.data.message;
@@ -24,7 +24,7 @@ export const updateComment = createAsyncThunk(
   "comments/updateComment",
   async (data, thunkAPI) => {
     try {
-      const res = await axios.patch(`${server}/api/comment/${data.id}`, data);
+      const res = await axios.patch(`/api/comment/${data.id}`, data);
       return res.data;
     } catch (error) {
       const message = error.response.data.message;
@@ -37,7 +37,7 @@ export const deleteComment = createAsyncThunk(
   "comments/deleteComment",
   async (id, thunkAPI) => {
     try {
-      const res = await axios.delete(`${server}/api/comment/${id}`);
+      const res = await axios.delete(`/api/comment/${id}`);
       return res.data;
     } catch (error) {
       const message = error.response.data.message;
@@ -50,7 +50,7 @@ export const likeComment = createAsyncThunk(
   "comments/likeComment",
   async (id, thunkAPI) => {
     try {
-      const res = await axios.patch(`${server}/api/comment/${id}/like`);
+      const res = await axios.patch(`/api/comment/${id}/like`);
       return res.data;
     } catch (error) {
       const message = error.response.data.message;
@@ -63,7 +63,7 @@ export const unlikeComment = createAsyncThunk(
   "comments/unlikeComment",
   async (id, thunkAPI) => {
     try {
-      const res = await axios.patch(`${server}/api/comment/${id}/unlike`);
+      const res = await axios.patch(`/api/comment/${id}/unlike`);
       return res.data;
     } catch (error) {
       const message = error.response.data.message;

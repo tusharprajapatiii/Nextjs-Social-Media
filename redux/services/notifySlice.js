@@ -11,7 +11,7 @@ export const createNotify = createAsyncThunk(
   async ({ message }, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.token;
-      const res = await axios.post(`${server}/api/notification`, message, {
+      const res = await axios.post(`/api/notification`, message, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -28,7 +28,7 @@ export const getNotify = createAsyncThunk(
   async (thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.token;
-      const res = await axios.get(`${server}/api/notification`, {
+      const res = await axios.get(`/api/notification`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -47,7 +47,7 @@ export const removeNotify = createAsyncThunk(
     try {
       const token = thunkAPI.getState().auth.token;
       const res = await axios.delete(
-        `${server}/api/notification/${message.id}?${message.url}`,
+        `/api/notification/${message.id}?${message.url}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -66,14 +66,11 @@ export const isReadNotify = createAsyncThunk(
   async ({ message }, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.token;
-      const res = await axios.patch(
-        `${server}/api/notification/${message.id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const res = await axios.patch(`/api/notification/${message.id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       return {
         ...message,
         isRead: true,
@@ -89,7 +86,7 @@ export const deleteAllNotify = createAsyncThunk(
   async (thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.token;
-      const res = await axios.delete(`${server}/api/notification`, {
+      const res = await axios.delete(`/api/notification`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

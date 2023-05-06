@@ -45,7 +45,7 @@ function Explore({ posts }) {
 export const getServerSideProps = async (ctx) => {
   const { token } = ctx.req.cookies;
 
-  const res = await axios.get(`${server}/api/posts/discover`, {
+  const res = await axios.get(`/api/posts/discover`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

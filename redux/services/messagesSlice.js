@@ -15,14 +15,11 @@ export const getConversations = createAsyncThunk(
       const token = thunkAPI.getState().auth.token;
       const user = thunkAPI.getState().auth.user;
 
-      const res = await axios.get(
-        `${server}/api/conversations?limit=${page * 9}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const res = await axios.get(`/api/conversations?limit=${page * 9}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       let newArr = [];
       res.data.conversations.forEach((item) => {
@@ -54,7 +51,7 @@ export const postMessage = createAsyncThunk(
       //   ...message,
       //   user: { _id, avatar, username, fullname },
       // });
-      const res = await axios.post(`${server}/api/messages`, message, {
+      const res = await axios.post(`/api/messages`, message, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -71,9 +68,7 @@ export const getMessages = createAsyncThunk(
   "messages/getMessages",
   async ({ id, page = 1 }, thunkAPI) => {
     try {
-      const res = await axios.get(
-        `${server}/api/messages/${id}?limit=${page * 9}`
-      );
+      const res = await axios.get(`/api/messages/${id}?limit=${page * 9}`);
       const newData = { ...res.data, messages: res.data.messages.reverse() };
       return {
         ...newData,
@@ -91,7 +86,7 @@ export const loadMoreMessages = createAsyncThunk(
   "messages/loadMoreMessages",
   async ({ id, page = 1 }, thunkAPI) => {
     try {
-      const res = axios.get(`${server}/api/messages/${id}?limit=${page * 9}`);
+      const res = axios.get(`/api/messages/${id}?limit=${page * 9}`);
       const newData = { ...res.data, messages: res.data.messages.reverse() };
       return {
         newData,
@@ -110,7 +105,7 @@ export const deleteMessage = createAsyncThunk(
     try {
       const newData = data.filter((item) => item._id !== message._id);
       const token = thunkAPI.getState().auth.token;
-      const res = await axios.delete(`${server}/api/messages/${message._id}`, {
+      const res = await axios.delete(`/api/messages/${message._id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -131,7 +126,7 @@ export const deleteConversation = createAsyncThunk(
   async (id, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.token;
-      const res = await axios.delete(`${server}/api/conversations/${id}`, {
+      const res = await axios.delete(`/api/conversations/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

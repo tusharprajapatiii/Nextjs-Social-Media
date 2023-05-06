@@ -64,12 +64,12 @@ export const getServerSideProps = async (ctx) => {
   //     Location: "/signup",
   //   });
   // }
-  const res = await axios.get(`${server}/api/users/suggestedusers`, {
+  const res = await axios.get(`/api/users/suggestedusers`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
-  const discoverResponse = await axios.get(`${server}/api/posts/discover`, {
+  const discoverResponse = await axios.get(`/api/posts/discover`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
