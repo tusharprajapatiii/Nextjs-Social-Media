@@ -14,7 +14,7 @@ export const getSinglePost = createAsyncThunk(
   "posts/getSinglePost",
   async (id, thunkAPI) => {
     try {
-      const res = await axios.get(`${server}/api/posts/${id}`);
+      const res = await axios.get(`/api/posts/${id}`);
       return res.data;
     } catch (error) {
       const message = error.response.data.message;
@@ -26,7 +26,7 @@ export const createComment = createAsyncThunk(
   "comments/createComment",
   async (data, thunkAPI) => {
     try {
-      const res = await axios.post(`${server}/api/comment`, data);
+      const res = await axios.post(`/api/comment`, data);
       return res.data;
     } catch (error) {
       const message = error.response.data.message;
@@ -39,7 +39,7 @@ export const getFeedPosts = createAsyncThunk(
   "posts/getFeedPosts",
   async (token, thunkAPI) => {
     try {
-      const res = await axios.get(`${server}/api/posts`, {
+      const res = await axios.get(`/api/posts`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -57,7 +57,7 @@ export const createPost = createAsyncThunk(
   async (postItems, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.token;
-      const res = await axios.post(`${server}/api/posts`, postItems, {
+      const res = await axios.post(`/api/posts`, postItems, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -73,7 +73,7 @@ export const updatePost = createAsyncThunk(
   "posts/updatePost",
   async ({ id, content }, thunkAPI) => {
     try {
-      const res = await axios.patch(`${server}/api/posts/${id}`, { content });
+      const res = await axios.patch(`/api/posts/${id}`, { content });
       return res.data;
     } catch (error) {
       const message = error.response.data.message;
@@ -85,7 +85,7 @@ export const likePost = createAsyncThunk(
   "posts/likePost",
   async (id, thunkAPI) => {
     try {
-      const res = await axios.patch(`${server}/api/posts/${id}/like`);
+      const res = await axios.patch(`/api/posts/${id}/like`);
       return res.data;
     } catch (error) {
       const message = error.response.data.message;
@@ -97,7 +97,7 @@ export const unlikePost = createAsyncThunk(
   "posts/unlikePost",
   async (id, thunkAPI) => {
     try {
-      const res = await axios.patch(`${server}/api/posts/${id}/unlike`);
+      const res = await axios.patch(`/api/posts/${id}/unlike`);
       return res.data;
     } catch (error) {
       const message = error.response.data.message;
@@ -110,7 +110,7 @@ export const deletePost = createAsyncThunk(
   async (id, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.token;
-      const res = await axios.delete(`${server}/api/posts/${id}`, {
+      const res = await axios.delete(`/api/posts/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

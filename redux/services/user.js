@@ -13,9 +13,7 @@ export const searchUseraa = createAsyncThunk(
   "user/searchUseraa",
   async (searchValue, thunkAPI) => {
     try {
-      const res = await axios.get(
-        `${server}/api/users/search?username=${searchValue}`
-      );
+      const res = await axios.get(`/api/users/search?username=${searchValue}`);
       console.log(searchValue, res);
       return res.data;
     } catch (error) {

@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { server } from "../../lib/utils";
 import axios from "axios";
 const initialState = {
   user: null,
